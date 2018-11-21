@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -30,31 +31,34 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getUsersById(@PathVariable("id") Long id) {
-        Optional<User> user = userRepository.findById(id);
-        verifyIfUserExists(user, id);
+        verifyIfUserExists(id);
         return new ResponseEntity<Optional>(userRepository.findById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody User user) {
-        return new ResponseEntity<>(userRepository.save(user), HttpStatus.OK);
+    public ResponseEntity<?> save(@Valid @RequestBody User user) {
+        return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        verifyIfUserExists(id);
         userRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody User user){
+    public ResponseEntity<?> update(@RequestBody User user) {
+        verifyIfUserExists(user.getId());
         userRepository.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
     // Métodos Auxiliares
-    private void verifyIfUserExists(Optional user, Long id) {
+    private void verifyIfUserExists(Long id) {
+        Optional<User> user = userRepository.findById(id);
+
         if (!user.isPresent()) {
             throw new ResourceNotFoundException("User not fount for ID: " + id);
         }
