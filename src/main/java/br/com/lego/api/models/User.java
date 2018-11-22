@@ -6,6 +6,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+
 @Entity
 @Table(name="users")
 public class User extends AbstractEntity{
@@ -16,6 +17,7 @@ public class User extends AbstractEntity{
     @NotEmpty(message = "O campo password é obrigatório")
     private String password;
     private boolean admin;
+
 
     public User(String email, String password) {
         this.email = email;
