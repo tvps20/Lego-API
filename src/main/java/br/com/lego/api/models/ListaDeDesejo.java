@@ -22,4 +22,12 @@ public class ListaDeDesejo extends AbstractEntity {
     public void setSetList(java.util.Set<Set> setList) {
         this.setList = setList;
     }
+
+    public java.util.Set<Documento> getListasDeDocumentos() {
+        return listasDeDocumentos;
+    }
+
+    public void setListasDeDocumentos(java.util.Set<Documento> listasDeDocumentos) {
+        this.listasDeDocumentos = listasDeDocumentos;
+    }
 }

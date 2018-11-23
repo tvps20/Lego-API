@@ -73,4 +73,12 @@ public class Peca extends AbstractEntity {
     public void setImagemList(Set<Imagem> imagemList) {
         this.imagemList = imagemList;
     }
+
+    public Set<Documento> getListasDeDocumentos() {
+        return listasDeDocumentos;
+    }
+
+    public void setListasDeDocumentos(Set<Documento> listasDeDocumentos) {
+        this.listasDeDocumentos = listasDeDocumentos;
+    }
 }

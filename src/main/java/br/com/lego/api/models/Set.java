@@ -108,4 +108,12 @@ public class Set extends AbstractEntity {
     public void setHistoricoDeCompra(HistoricoDeCompra historicoDeCompra) {
         this.historicoDeCompra = historicoDeCompra;
     }
+
+    public java.util.Set<Documento> getListasDeDocumentos() {
+        return listasDeDocumentos;
+    }
+
+    public void setListasDeDocumentos(java.util.Set<Documento> listasDeDocumentos) {
+        this.listasDeDocumentos = listasDeDocumentos;
+    }
 }
