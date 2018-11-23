@@ -19,6 +19,7 @@ public class User extends AbstractEntity{
     private boolean admin;
 
 
+    // Contrutores
     public User(String email, String password) {
         this.email = email;
         this.password = password;
@@ -28,7 +29,8 @@ public class User extends AbstractEntity{
     public User() {
     }
 
-    //getters and setters
+
+    // Getters and Setters
     public String getNome() {
         return nome;
     }

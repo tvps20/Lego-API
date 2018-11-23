@@ -1,9 +1,6 @@
 package br.com.lego.api.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
@@ -16,12 +13,18 @@ public class Peca extends AbstractEntity {
     private int numPeca;
     private String cor;
     private String descricao;
+
     @Column(name = "set_id")
     private Long setId;
+
     @OneToMany(mappedBy = "pecaImagemId")
     private java.util.Set<Imagem> imagemList;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "listaDePecas")
+    private java.util.Set<Documento> listasDeDocumentos;
 
+
+    // Contrutores
     public Peca(int numPeca) {
         this.numPeca = numPeca;
     }
@@ -29,7 +32,8 @@ public class Peca extends AbstractEntity {
     public Peca() {
     }
 
-    //getters and setters
+
+    // Getters and Setters
     public int getNumPeca() {
         return numPeca;
     }

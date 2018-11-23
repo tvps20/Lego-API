@@ -12,21 +12,30 @@ public class Set extends AbstractEntity {
     @Size(max = 100)
     @Column(unique = true)
     private String nome;
-    @Column(name = "qtd_pecas")
-    private int qtdPecas;
     private int ano;
     private double preco;
-    @OneToMany(mappedBy = "setId", fetch = FetchType.LAZY)
-    private java.util.Set<Peca> pecaList;
-    @OneToMany(mappedBy = "setImagemId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private java.util.Set<Imagem> imagemList;
+
+    @Column(name = "qtd_pecas")
+    private int qtdPecas;
+
     @Column(name = "lista_desejo_id")
     private Long listaDeDesejoId;
+
+    @OneToMany(mappedBy = "setId", fetch = FetchType.LAZY)
+    private java.util.Set<Peca> pecaList;
+
+    @OneToMany(mappedBy = "setImagemId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private java.util.Set<Imagem> imagemList;
+
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "historico_compra", nullable = false)
+    @JoinColumn(name = "compra_id", nullable = false)
     private HistoricoDeCompra historicoDeCompra;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "listaDeSets")
+    private java.util.Set<Documento> listasDeDocumentos;
 
+
+    // Contrutores
     public Set(String nome) {
         this.nome = nome;
     }
@@ -34,7 +43,8 @@ public class Set extends AbstractEntity {
     public Set() {
     }
 
-    //getters and setters
+
+    /// Getters and Setters
     public String getNome() {
         return nome;
     }

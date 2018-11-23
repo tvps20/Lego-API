@@ -19,6 +19,7 @@ public class Imagem extends AbstractEntity {
     private Long pecaImagemId;
 
 
+    // Contrutores
     public Imagem(String nome) {
         this.nome = nome;
     }
@@ -26,7 +27,8 @@ public class Imagem extends AbstractEntity {
     public Imagem() {
     }
 
-    //getters and setters
+
+    // Getters and Setters
     public String getNome() {
         return nome;
     }

@@ -1,9 +1,6 @@
 package br.com.lego.api.models;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
+import javax.persistence.*;
 
 
 @Entity
@@ -13,8 +10,11 @@ public class ListaDeDesejo extends AbstractEntity {
     @OneToMany(mappedBy = "listaDeDesejoId")
     private java.util.Set<Set> setList;
 
-    //getters and setters
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "listasDeDesejos")
+    private java.util.Set<Documento> listasDeDocumentos;
 
+
+    // Getters and Setters
     public java.util.Set<Set> getSetList() {
         return setList;
     }

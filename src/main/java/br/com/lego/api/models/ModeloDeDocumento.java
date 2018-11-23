@@ -1,29 +1,29 @@
 package br.com.lego.api.models;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "modelos_de_documentos")
-public class ModeloDeDocumento extends AbstractEntity{
+public class ModeloDeDocumento extends AbstractEntity {
 
-    private boolean nome;
+    @Column(name = "historico_compras")
     private boolean historicoDeCompras;
+
+    @Column(name = "listas_sets")
     private boolean listaDeSets;
+
+    @Column(name = "litas_desejo")
     private boolean listaDeDesejo;
+
+    @Column(name = "listas_pecas")
+    private boolean listaDePecas;
     private boolean descricao;
-    private boolean imagens;
 
-    //getters and setters
-    public boolean isNome() {
-        return nome;
-    }
 
-    public void setNome(boolean nome) {
-        this.nome = nome;
-    }
-
+    // Getters and Setters
     public boolean isHistoricoDeCompras() {
         return historicoDeCompras;
     }
@@ -56,11 +56,11 @@ public class ModeloDeDocumento extends AbstractEntity{
         this.descricao = descricao;
     }
 
-    public boolean isImagens() {
-        return imagens;
+    public boolean isListaDePecas() {
+        return listaDePecas;
     }
 
-    public void setImagens(boolean imagens) {
-        this.imagens = imagens;
+    public void setListaDePecas(boolean listaDePecas) {
+        this.listaDePecas = listaDePecas;
     }
 }
