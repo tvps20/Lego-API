@@ -1,7 +1,9 @@
 package br.com.lego.api.endpoints;
 
 import br.com.lego.api.erros.ResourceNotFoundException;
+import br.com.lego.api.models.Set;
 import br.com.lego.api.models.User;
+import br.com.lego.api.repository.SetRepository;
 import br.com.lego.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -13,54 +15,54 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/users")
-public class UserController {
+@RequestMapping("api/sets")
+public class SetController {
 
-    private final UserRepository userRepository;
+    private final SetRepository setRepository;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public SetController(SetRepository setRepository) {
+        this.setRepository = setRepository;
     }
 
 
     // Métodos Crud
     @GetMapping
     public ResponseEntity<?> listAll(Pageable pageable) {
-        return new ResponseEntity<>(userRepository.findAll(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(setRepository.findAll(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUsersById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getSetById(@PathVariable("id") Long id) {
         verifyIfUserExists(id);
-        return new ResponseEntity<Optional>(userRepository.findById(id), HttpStatus.OK);
+        return new ResponseEntity<Optional>(setRepository.findById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@Valid @RequestBody User user) {
-        return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
+    public ResponseEntity<?> save(@Valid @RequestBody Set set) {
+        return new ResponseEntity<>(setRepository.save(set), HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody User user) {
-        verifyIfUserExists(user.getId());
-        userRepository.save(user);
+    public ResponseEntity<?> update(@RequestBody Set set) {
+        verifyIfUserExists(set.getId());
+        setRepository.save(set);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         verifyIfUserExists(id);
-        userRepository.deleteById(id);
+        setRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
     // Métodos Auxiliares
     private void verifyIfUserExists(Long id) {
-        Optional<User> user = userRepository.findById(id);
+        Optional<Set> set = setRepository.findById(id);
 
-        if (!user.isPresent()) {
+        if (!set.isPresent()) {
             throw new ResourceNotFoundException("User not fount for ID: " + id);
         }
     }

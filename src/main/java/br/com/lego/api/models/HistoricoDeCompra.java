@@ -7,8 +7,10 @@ import javax.persistence.*;
 @Table(name = "historicos_de_compras")
 public class HistoricoDeCompra extends AbstractEntity {
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "historicoDeCompra")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "set_id", nullable = false)
     private Set set;
+
     private double preco;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "listasDeCompras")

@@ -20,6 +20,7 @@ public class ModeloDeDocumento extends AbstractEntity {
 
     @Column(name = "listas_pecas")
     private boolean listaDePecas;
+
     private boolean descricao;
 
 

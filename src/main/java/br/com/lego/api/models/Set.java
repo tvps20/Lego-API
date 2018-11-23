@@ -2,16 +2,19 @@ package br.com.lego.api.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
 @Entity
 @Table(name = "sets")
 public class Set extends AbstractEntity {
+
     @NotEmpty
     @Size(max = 100)
     @Column(unique = true)
     private String nome;
+
     private int ano;
     private double preco;
 
@@ -27,8 +30,7 @@ public class Set extends AbstractEntity {
     @OneToMany(mappedBy = "setImagemId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private java.util.Set<Imagem> imagemList;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "compra_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "set")
     private HistoricoDeCompra historicoDeCompra;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "listaDeSets")

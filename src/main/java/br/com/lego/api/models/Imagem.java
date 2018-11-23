@@ -9,12 +9,16 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name = "imagens")
 public class Imagem extends AbstractEntity {
+
     @NotEmpty
     private String nome;
+
     @NotEmpty
     private String path;
+
     @Column(name = "set_imagem_id")
     private Long setImagemId;
+
     @Column(name = "peca_imagem_id")
     private Long pecaImagemId;
 

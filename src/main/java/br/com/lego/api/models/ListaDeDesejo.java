@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Table(name = "listas_de_desejos")
 public class ListaDeDesejo extends AbstractEntity {
 
-    @OneToMany(mappedBy = "listaDeDesejoId")
+    @OneToMany(fetch = FetchType.LAZY, cascade =  CascadeType.ALL, mappedBy = "listaDeDesejoId")
     private java.util.Set<Set> setList;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "listasDeDesejos")

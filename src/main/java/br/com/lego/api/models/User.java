@@ -10,12 +10,16 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Table(name="users")
 public class User extends AbstractEntity{
+
     private String nome;
+
     @NotEmpty(message = "O campo email é obrigatório")
     @Email
     private String email;
+
     @NotEmpty(message = "O campo password é obrigatório")
     private String password;
+
     private boolean admin;
 
 

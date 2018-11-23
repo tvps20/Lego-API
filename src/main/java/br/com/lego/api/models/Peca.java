@@ -8,9 +8,11 @@ import java.util.Set;
 @Entity
 @Table(name = "pecas")
 public class Peca extends AbstractEntity {
+
     @NotEmpty
     @Column(name = "num_peca")
     private int numPeca;
+
     private String cor;
     private String descricao;
 
