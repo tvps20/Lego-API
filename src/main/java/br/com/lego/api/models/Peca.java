@@ -1,10 +1,8 @@
 package br.com.lego.api.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Objects;
 
 
 @Entity(name = "Peca")
@@ -21,8 +19,8 @@ public class Peca extends AbstractEntity {
     @Column(name = "set_id", nullable = false)
     private Long setId;
 
-    @OneToMany(mappedBy = "pecaImagemId")
-    private List<Imagem> imagemList;
+    @OneToMany(mappedBy = "pecaImagemId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Imagem> listaDeImagens;
 
 
     // Contrutores
@@ -59,12 +57,12 @@ public class Peca extends AbstractEntity {
         this.descricao = descricao;
     }
 
-    public List<Imagem> getImagemList() {
-        return imagemList;
+    public List<Imagem> getListaDeImgens() {
+        return listaDeImagens;
     }
 
-    public void setImagemList(List<Imagem> imagemList) {
-        this.imagemList = imagemList;
+    public void setListaDeImgens(List<Imagem> listaDeImgens) {
+        this.listaDeImagens = listaDeImgens;
     }
 
     public Long getSetId() {
