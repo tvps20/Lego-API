@@ -7,14 +7,11 @@ import javax.persistence.*;
 @Table(name = "historicos_de_compras")
 public class HistoricoDeCompra extends AbstractEntity {
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "set_id", nullable = false)
     private Set set;
 
     private double preco;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "listasDeCompras")
-    private java.util.Set<Documento> listasDeDocumentos;
 
 
     // Contrutores
@@ -42,13 +39,5 @@ public class HistoricoDeCompra extends AbstractEntity {
 
     public void setPreco(double preco) {
         this.preco = preco;
-    }
-
-    public java.util.Set<Documento> getListasDeDocumentos() {
-        return listasDeDocumentos;
-    }
-
-    public void setListasDeDocumentos(java.util.Set<Documento> listasDeDocumentos) {
-        this.listasDeDocumentos = listasDeDocumentos;
     }
 }

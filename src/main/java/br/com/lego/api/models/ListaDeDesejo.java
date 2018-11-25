@@ -7,20 +7,20 @@ import javax.persistence.*;
 @Table(name = "listas_de_desejos")
 public class ListaDeDesejo extends AbstractEntity {
 
-    @OneToMany(fetch = FetchType.LAZY, cascade =  CascadeType.ALL, mappedBy = "listaDeDesejoId")
-    private java.util.Set<Set> setList;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "listaDeDesejoId")
+    private java.util.Set<Set> listaDeSets;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "listasDeDesejos")
     private java.util.Set<Documento> listasDeDocumentos;
 
 
     // Getters and Setters
-    public java.util.Set<Set> getSetList() {
-        return setList;
+    public java.util.Set<Set> getListaDeSets() {
+        return listaDeSets;
     }
 
-    public void setSetList(java.util.Set<Set> setList) {
-        this.setList = setList;
+    public void setListaDeSets(java.util.Set<Set> listaDeSets) {
+        this.listaDeSets = listaDeSets;
     }
 
     public java.util.Set<Documento> getListasDeDocumentos() {

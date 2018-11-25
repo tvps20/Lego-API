@@ -24,8 +24,9 @@ public class Imagem extends AbstractEntity {
 
 
     // Contrutores
-    public Imagem(String nome) {
+    public Imagem(String nome, String path) {
         this.nome = nome;
+        this.path = path;
     }
 
     public Imagem() {

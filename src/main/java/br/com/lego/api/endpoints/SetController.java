@@ -1,10 +1,10 @@
 package br.com.lego.api.endpoints;
 
 import br.com.lego.api.erros.ResourceNotFoundException;
+import br.com.lego.api.models.Peca;
 import br.com.lego.api.models.Set;
-import br.com.lego.api.models.User;
+import br.com.lego.api.repository.PecaRepository;
 import br.com.lego.api.repository.SetRepository;
-import br.com.lego.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,12 +21,13 @@ import java.util.Optional;
 public class SetController {
 
     private final SetRepository setRepository;
+    private PecaRepository pecaRepository;
 
     @Autowired
-    public SetController(SetRepository setRepository) {
+    public SetController(SetRepository setRepository, PecaRepository pecaRepository) {
         this.setRepository = setRepository;
+        this.pecaRepository = pecaRepository;
     }
-
 
     // Métodos Crud
     @GetMapping
@@ -40,7 +43,13 @@ public class SetController {
 
     @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody Set set) {
-        return new ResponseEntity<>(setRepository.save(set), HttpStatus.CREATED);
+        List<Peca> pecas = set.getListaDePecas();
+        set.setListaDePecas(new ArrayList<>());
+        Set setSalvo = setRepository.save(set);
+        this.setIdInPecas(setSalvo.getId(), pecas);
+        pecaRepository.saveAll(pecas);
+
+        return new ResponseEntity<>(setSalvo, HttpStatus.CREATED);
     }
 
     @PutMapping
@@ -63,7 +72,14 @@ public class SetController {
         Optional<Set> set = setRepository.findById(id);
 
         if (!set.isPresent()) {
-            throw new ResourceNotFoundException("User not fount for ID: " + id);
+            throw new ResourceNotFoundException("Set not fount for ID: " + id);
         }
+    }
+
+    private void setIdInPecas(Long setId, List<Peca> pecas){
+        for (Peca peca: pecas) {
+            peca.setSetId(setId);
+        }
+
     }
 }

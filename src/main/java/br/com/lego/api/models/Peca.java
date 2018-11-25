@@ -2,28 +2,27 @@ package br.com.lego.api.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.Set;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Objects;
 
 
-@Entity
+@Entity(name = "Peca")
 @Table(name = "pecas")
 public class Peca extends AbstractEntity {
 
-    @NotEmpty
+    @NotNull
     @Column(name = "num_peca")
     private int numPeca;
 
     private String cor;
     private String descricao;
 
-    @Column(name = "set_id")
+    @Column(name = "set_id", nullable = false)
     private Long setId;
 
     @OneToMany(mappedBy = "pecaImagemId")
-    private java.util.Set<Imagem> imagemList;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "listaDePecas")
-    private java.util.Set<Documento> listasDeDocumentos;
+    private List<Imagem> imagemList;
 
 
     // Contrutores
@@ -60,27 +59,19 @@ public class Peca extends AbstractEntity {
         this.descricao = descricao;
     }
 
+    public List<Imagem> getImagemList() {
+        return imagemList;
+    }
+
+    public void setImagemList(List<Imagem> imagemList) {
+        this.imagemList = imagemList;
+    }
+
     public Long getSetId() {
         return setId;
     }
 
     public void setSetId(Long setId) {
         this.setId = setId;
-    }
-
-    public Set<Imagem> getImagemList() {
-        return imagemList;
-    }
-
-    public void setImagemList(Set<Imagem> imagemList) {
-        this.imagemList = imagemList;
-    }
-
-    public Set<Documento> getListasDeDocumentos() {
-        return listasDeDocumentos;
-    }
-
-    public void setListasDeDocumentos(Set<Documento> listasDeDocumentos) {
-        this.listasDeDocumentos = listasDeDocumentos;
     }
 }

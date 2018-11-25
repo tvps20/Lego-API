@@ -1,12 +1,14 @@
 package br.com.lego.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 
-@Entity
+@Entity(name = "Set")
 @Table(name = "sets")
 public class Set extends AbstractEntity {
 
@@ -18,23 +20,20 @@ public class Set extends AbstractEntity {
     private int ano;
     private double preco;
 
-    @Column(name = "qtd_pecas")
-    private int qtdPecas;
 
     @Column(name = "lista_desejo_id")
     private Long listaDeDesejoId;
 
-    @OneToMany(mappedBy = "setId", fetch = FetchType.LAZY)
-    private java.util.Set<Peca> pecaList;
+    @OneToMany(mappedBy = "setId", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    private List<Peca> listaDePecas;
 
-    @OneToMany(mappedBy = "setImagemId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private java.util.Set<Imagem> imagemList;
+    @OneToMany(mappedBy = "setImagemId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Imagem> listaDeImagens;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "set")
+    @JsonIgnore
     private HistoricoDeCompra historicoDeCompra;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "listaDeSets")
-    private java.util.Set<Documento> listasDeDocumentos;
 
 
     // Contrutores
@@ -55,14 +54,6 @@ public class Set extends AbstractEntity {
         this.nome = nome;
     }
 
-    public int getQtdPecas() {
-        return qtdPecas;
-    }
-
-    public void setQtdPecas(int qtdPecas) {
-        this.qtdPecas = qtdPecas;
-    }
-
     public int getAno() {
         return ano;
     }
@@ -79,20 +70,20 @@ public class Set extends AbstractEntity {
         this.preco = preco;
     }
 
-    public java.util.Set<Peca> getPecaList() {
-        return pecaList;
+    public List<Peca> getListaDePecas() {
+        return listaDePecas;
     }
 
-    public void setPecaList(java.util.Set<Peca> pecaList) {
-        this.pecaList = pecaList;
+    public void setListaDePecas(List<Peca> listaDePecas) {
+        this.listaDePecas = listaDePecas;
     }
 
-    public java.util.Set<Imagem> getImagemList() {
-        return imagemList;
+    public List<Imagem> getListaDeImagens() {
+        return listaDeImagens;
     }
 
-    public void setImagemList(java.util.Set<Imagem> imagemList) {
-        this.imagemList = imagemList;
+    public void setListaDeImagens(List<Imagem> listaDeImagens) {
+        this.listaDeImagens = listaDeImagens;
     }
 
     public Long getListaDeDesejoId() {
@@ -111,11 +102,4 @@ public class Set extends AbstractEntity {
         this.historicoDeCompra = historicoDeCompra;
     }
 
-    public java.util.Set<Documento> getListasDeDocumentos() {
-        return listasDeDocumentos;
-    }
-
-    public void setListasDeDocumentos(java.util.Set<Documento> listasDeDocumentos) {
-        this.listasDeDocumentos = listasDeDocumentos;
-    }
 }

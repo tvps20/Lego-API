@@ -1,13 +1,16 @@
 package br.com.lego.api.models;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "modelos_de_documentos")
 public class ModeloDeDocumento extends AbstractEntity {
+    @NotEmpty
+    private String nome;
+
+    private boolean descricao;
 
     @Column(name = "historico_compras")
     private boolean historicoDeCompras;
@@ -21,10 +24,25 @@ public class ModeloDeDocumento extends AbstractEntity {
     @Column(name = "listas_pecas")
     private boolean listaDePecas;
 
-    private boolean descricao;
+
+    // Contrutores
+    public ModeloDeDocumento(@NotEmpty String nome) {
+        this.nome = nome;
+    }
+
+    public ModeloDeDocumento() {
+    }
 
 
     // Getters and Setters
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public boolean isHistoricoDeCompras() {
         return historicoDeCompras;
     }
