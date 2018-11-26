@@ -14,7 +14,7 @@ public class Imagem extends AbstractEntity {
     private String nome;
 
     @NotEmpty
-    private String img;
+    private String path;
 
     @Column(name = "set_imagem_id")
     private Long setImagemId;
@@ -26,7 +26,7 @@ public class Imagem extends AbstractEntity {
     // Contrutores
     public Imagem(String nome, String path) {
         this.nome = nome;
-        this.img = path;
+        this.path = path;
     }
 
     public Imagem() {
@@ -43,11 +43,11 @@ public class Imagem extends AbstractEntity {
     }
 
     public String getPath() {
-        return img;
+        return path;
     }
 
     public void setPath(String path) {
-        this.img = path;
+        this.path = path;
     }
 
     public Long getSetImagemId() {
