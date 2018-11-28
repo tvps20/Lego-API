@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebMvc
 public class CrossConfigure implements WebMvcConfigurer {
-
+    // Configuração para habilitar todas as chamadas http
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**");
