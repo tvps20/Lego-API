@@ -34,6 +34,7 @@ public class SetController {
     }
 
     // Métodos Crud
+    @CrossOrigin
     @GetMapping
     public ResponseEntity<?> listAll(Pageable pageable) {
         return new ResponseEntity<>(setRepository.findAll(pageable), HttpStatus.OK);
