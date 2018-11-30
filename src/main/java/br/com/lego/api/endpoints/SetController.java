@@ -61,6 +61,7 @@ public class SetController {
         return new ResponseEntity<>(setSalvo, HttpStatus.CREATED);
     }
 
+    @CrossOrigin
     @PutMapping
     public ResponseEntity<?> update(@RequestBody Set set) {
         verifyIfUserExists(set.getId());
