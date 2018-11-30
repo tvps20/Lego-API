@@ -15,9 +15,9 @@ public class HistoricoDeCompra extends AbstractEntity {
 
 
     // Contrutores
-    public HistoricoDeCompra(Set set, double preco) {
+    public HistoricoDeCompra(Set set) {
         this.set = set;
-        this.preco = preco;
+        this.preco = set.getPreco();
     }
 
     public HistoricoDeCompra() {
