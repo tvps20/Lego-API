@@ -47,6 +47,7 @@ public class ModeloDocumentoController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @CrossOrigin
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         verifyIfUserExists(id);
