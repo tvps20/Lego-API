@@ -30,7 +30,7 @@ public class Set extends AbstractEntity {
     @OneToMany(mappedBy = "setImagemId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Imagem> listaDeImagens;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "set")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH , mappedBy = "set")
     @JsonIgnore
     private HistoricoDeCompra historicoDeCompra;
 
